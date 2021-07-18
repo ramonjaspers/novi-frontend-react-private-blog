@@ -1,15 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import BlogOverview from './pages/BlogOverview';
+import BlogPost from './pages/BlogPost';
 import './App.css';
 
-function App() {
-  // We houden in de state bij of iemand is "ingelogd" (simpele versie)
-  const [isAuthenticated, toggleIsAuthenticated ] = useState(false);
+import { useGlobalState, GlobalContext } from './components/globals';
 
-  return (
-    <div>
-      Maak hier jouw prachtige blog-applicatie!
-    </div>
-  );
+/**
+ * renders the correct nodes based on the user state
+ * 
+ * @param {object} children contains the underlaying nodes
+ * @param {boolean} authState contains the user state
+ * @param {object} rest provides the data
+ * @returns 
+ */
+function PrivateRoute({ children, authState, ...rest }) {
+    return (
+        <Route {...rest}>
+            {authState ? children : <Redirect to="/login" />}
+        </Route>
+    );
 }
 
-export default App;
+export default function App() {
+    const globalState = useGlobalState();
+    return (
+        <GlobalContext.Provider value={globalState}>
+            <BrowserRouter>
+                <Navigation />
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route exact path="/login" >
+                        <Login />
+                    </Route>
+                    <PrivateRoute exact path="/blogposts" authState={globalState.isAuthenticated}>
+                        <BlogOverview />
+                    </PrivateRoute>
+                    <PrivateRoute exact path="/blog/:id" authState={globalState.isAuthenticated}>
+                        <BlogPost />
+                    </PrivateRoute>
+                </Switch>
+            </BrowserRouter>
+        </GlobalContext.Provider >
+    );
+};
