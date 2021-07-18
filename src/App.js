@@ -31,6 +31,7 @@ export default function App() {
         <GlobalContext.Provider value={globalState}>
             <BrowserRouter>
                 <Navigation />
+                <div id='content'>
                 <Switch>
                     <Route exact path="/">
                         <Home />
@@ -45,6 +46,7 @@ export default function App() {
                         <BlogPost />
                     </PrivateRoute>
                 </Switch>
+                </div>
             </BrowserRouter>
         </GlobalContext.Provider >
     );

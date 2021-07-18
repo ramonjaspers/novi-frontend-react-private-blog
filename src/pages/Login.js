@@ -32,7 +32,7 @@ export default function Login() {
             <h1>Login</h1>
             <p>Je bent helaas nog niet inglogged :(</p>
             <form onSubmit={handleSubmit(data => validate(data))}>
-                <label htmlFor="email">email</label>
+                <label htmlFor="email">email: </label>
                 <input
                     id="email"
                     {...register("email", {
@@ -46,7 +46,7 @@ export default function Login() {
                 />
                 {errors.email && <span role="alert">{errors.email.message}</span>}
                 <br />
-                <label htmlFor="password">password</label>
+                <label htmlFor="password">password: </label>
                 <input
                     id="password"
                     {...register("password", {
