@@ -12,7 +12,6 @@ export default function Navigation() {
         <li>
           <NavLink to="/">Home</NavLink>
         </li>
-        {/* show content based on the login state */}
         {globalState.isAuthenticated === true ?
           <>
             <li>

@@ -1,6 +1,6 @@
-import React from 'react';
-import posts from '../data/posts.json';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import posts from "../data/posts.json";
+import { useParams } from "react-router-dom";
 
 export default function BlogPost() {
   const { id } = useParams();

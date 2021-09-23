@@ -29,9 +29,8 @@ export default function App() {
     const globalState = useGlobalState();
     return (
         <GlobalContext.Provider value={globalState}>
-            <BrowserRouter>
-                <Navigation />
-                <div id='content'>
+            <Navigation />
+            <div id='content'>
                 <Switch>
                     <Route exact path="/">
                         <Home />
@@ -42,12 +41,11 @@ export default function App() {
                     <PrivateRoute exact path="/blogposts" authState={globalState.isAuthenticated}>
                         <BlogOverview />
                     </PrivateRoute>
-                    <PrivateRoute exact path="/blog/:id" authState={globalState.isAuthenticated}>
+                    <PrivateRoute path="/blog/:id" authState={globalState.isAuthenticated}>
                         <BlogPost />
                     </PrivateRoute>
                 </Switch>
-                </div>
-            </BrowserRouter>
-        </GlobalContext.Provider >
+            </div>
+        </GlobalContext.Provider>
     );
 };
